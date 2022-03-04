@@ -5,7 +5,6 @@ import lk.coop.eliezer.dto.request.DepartmentUpdateRequest;
 import lk.coop.eliezer.dto.response.DepartmentResponse;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface DepartmentService {
 

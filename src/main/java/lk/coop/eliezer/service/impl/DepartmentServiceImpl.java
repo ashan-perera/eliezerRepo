@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,23 +48,27 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         Department departmentSave = departmentRepository.save(department);
 
-        List<EmployeeSaveRequest> employeeSaveRequestList =  departmentSaveRequest.getEmployeeSaveRequestList();
-        employeeSaveRequestList.forEach(employeeSaveRequest -> {
+        if(departmentSaveRequest.getEmployeeSaveRequestList() != null) {
 
-            Employee employee = new Employee();
+            List<EmployeeSaveRequest> employeeSaveRequestList = departmentSaveRequest.getEmployeeSaveRequestList();
+            employeeSaveRequestList.forEach(employeeSaveRequest -> {
 
-            employee.setFirstName(employeeSaveRequest.getFirstName());
-            employee.setLastName(employeeSaveRequest.getLastName());
-            employee.setEpf(employeeSaveRequest.getEpf());
-            employee.setDob(employeeSaveRequest.getDob());
-            employee.setCreatedBy(employeeSaveRequest.getCreatedBy());
-            employee.setModifiedBy(employeeSaveRequest.getModifiedBy());
-            employee.setStatus(Status.ACTIVE);
-            employee.setDepartment(departmentSave);
+                Employee employee = new Employee();
 
-            employeeRepository.save(employee);
+                employee.setFirstName(employeeSaveRequest.getFirstName());
+                employee.setLastName(employeeSaveRequest.getLastName());
+                employee.setEpf(employeeSaveRequest.getEpf());
+                employee.setDob(employeeSaveRequest.getDob());
+                employee.setCreatedBy(employeeSaveRequest.getCreatedBy());
+                employee.setModifiedBy(employeeSaveRequest.getModifiedBy());
+                employee.setStatus(Status.ACTIVE);
+                employee.setDepartment(departmentSave);
 
-        });
+                employeeRepository.save(employee);
+
+            });
+
+        }
 
         return convert(departmentSave);
 

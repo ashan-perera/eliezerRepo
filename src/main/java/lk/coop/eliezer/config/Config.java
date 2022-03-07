@@ -10,7 +10,7 @@ import java.time.LocalTime;
 @EnableScheduling
 public class Config {
 
-    @Scheduled(cron = "0 0/7 * * * *")
+    @Scheduled(cron = "0 0/6 * * * *")
     public void scheduleExpireInactiveReason() {
 
         System.out.println("Schedule print " + LocalTime.now());
